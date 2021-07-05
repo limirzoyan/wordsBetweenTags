@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class New {
+    public static void main(String[] args) {
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n" +
+                "         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
+                "         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n" +
+                "    <modelVersion>4.0.0</modelVersion>\n" +
+                "\n" +
+                "    <groupId>org.example</groupId>\n" +
+                "    <artifactId>Li11</artifactId>\n" +
+                "    <version>1.0-SNAPSHOT</version>\n" +
+                "\n" +
+                "    <properties>\n" +
+                "        <maven.compiler.source>15</maven.compiler.source>\n" +
+                "        <maven.compiler.target>15</maven.compiler.target>\n" +
+                "    </properties>\n" +
+                "\n" +
+                "</project>";
+
+        String trimmedXml = xml.trim();
+        String xmlWithoutSpaces = trimmedXml.replaceAll(" ", "");
+        String[] arrayRows = xmlWithoutSpaces.split("\n");
+        for (String stringRow : arrayRows) {
+            if (stringRow.contains("<")) {
+                stringRow = stringRow.replaceFirst("<", "");
+                if (stringRow.contains("<")) {
+                    String wordWithGreaterThanSymbol = stringRow.substring(stringRow.indexOf('>', 1), stringRow.indexOf('<', 2));
+                    String word = wordWithGreaterThanSymbol.replaceAll(">", "");
+                    List<String> listOfWordsBetweenTags = new ArrayList<String>();
+                    listOfWordsBetweenTags.add(word);
+                    for(String wordBeweenTags:listOfWordsBetweenTags) {
+                        System.out.println(wordBeweenTags);
+                    }
+                }
+            }
+        }
+    }
+}
