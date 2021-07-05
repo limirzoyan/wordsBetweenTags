@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class New {
+public class WordsBetweenTags {
     public static void main(String[] args) {
-        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        String xml= "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
                 "<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n" +
                 "         xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                 "         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n" +
@@ -20,19 +20,20 @@ public class New {
                 "\n" +
                 "</project>";
 
-        String trimmedXml = xml.trim();
-        String xmlWithoutSpaces = trimmedXml.replaceAll(" ", "");
-        String[] arrayRows = xmlWithoutSpaces.split("\n");
-        for (String stringRow : arrayRows) {
-            if (stringRow.contains("<")) {
-                stringRow = stringRow.replaceFirst("<", "");
-                if (stringRow.contains("<")) {
-                    String wordWithGreaterThanSymbol = stringRow.substring(stringRow.indexOf('>', 1), stringRow.indexOf('<', 2));
-                    String word = wordWithGreaterThanSymbol.replaceAll(">", "");
-                    List<String> listOfWordsBetweenTags = new ArrayList<String>();
-                    listOfWordsBetweenTags.add(word);
-                    for(String wordBeweenTags:listOfWordsBetweenTags) {
-                        System.out.println(wordBeweenTags);
+        String trimmedXml=xml.trim();
+        String xmlWithoutSpaces= trimmedXml.replaceAll(" ", "");
+        String xmlOneLine= xmlWithoutSpaces.replaceAll("\n", "");
+        String [] arraySplittedUsingGreaterSymbol=xmlOneLine.split(">");
+        for(String stringSplittedUsingGreaterSymbol:arraySplittedUsingGreaterSymbol){
+            if (stringSplittedUsingGreaterSymbol.charAt(0)!= '<'){
+                String [] arraySplittedUsingLessSymbol= stringSplittedUsingGreaterSymbol. split("<");
+                for(String stringSplittedUsingLessSymbol:arraySplittedUsingLessSymbol) {
+                    if (!stringSplittedUsingLessSymbol.contains("/")) {
+                        List<String> listOfWordsBetweenTags = new ArrayList<String>();
+                        listOfWordsBetweenTags.add(stringSplittedUsingLessSymbol);
+                        for(String wordBeweenTags:listOfWordsBetweenTags) {
+                            System.out.println(wordBeweenTags);
+                        }
                     }
                 }
             }
